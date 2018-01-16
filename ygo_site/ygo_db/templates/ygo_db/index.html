@@ -1,0 +1,13 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'ygo_db/style.css' %}" />
+
+{% if card_list %}
+    <ul>
+    {% for card in card_list %}
+        <li><a href="/ygo_db/{{ card.id }}/">{{ card.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No cards are available.</p>
+{% endif %}
