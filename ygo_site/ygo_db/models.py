@@ -33,14 +33,56 @@ class CardTexts(models.Model):
 class CardDatas(models.Model):
     """Models the 'datas' table from DB"""
     id = models.ForeignKey('CardTexts', db_column='id', primary_key=True, on_delete=models.CASCADE)
-    ot = models.IntegerField(blank=True)
+    OT_CHOICES = (
+        ('1','OCG only'),
+        ('2','TCG only'),
+        ('3','OCG/TCG'),
+        ('4','Anime only')
+    )
+    ot = models.CharField(
+        max_length=20,
+        choices=OT_CHOICES,
+        default='1',
+    )
     alias = models.IntegerField(blank=True)
     setcode = models.IntegerField(blank=True)
     card_type = models.IntegerField(db_column='type', default=0)
     attack = models.IntegerField(db_column='atk', default=0)
     defense = models.IntegerField(db_column='def', default=0)
     level = models.IntegerField(blank=True)
-    race = models.IntegerField(blank=True)
+    RACE_CHOICES = (
+        ('0','Null'),
+        ('1','Warrior'),
+        ('2','Spellcaster'),
+        ('4','Fairy'),
+        ('8','Fiend'),
+        ('16','Zombie'),
+        ('32','Machine'),
+        ('64','Aqua'),
+        ('128','Pyro'),
+        ('256','Rock'),
+        ('512','Winged Beast'),
+        ('1024','Plant'),
+        ('2048','Insect'),
+        ('4096','Thunder'),
+        ('8192','Dragon'),
+        ('16384','Beast'),
+        ('32768','Beast-Warrior'),
+        ('65536','Dinosaur'),
+        ('131072','Fish'),
+        ('262144','Sea-Serpent'),
+        ('524288','Reptile'),
+        ('1048576','Psychic'),
+        ('2097152','Divine-Beast'),
+        ('4194304','Creator God'),
+        ('8388608','Wyrm'),
+        ('16777216','Cyberse')
+    )
+    race = models.CharField(
+        max_length=20,
+        choices=RACE_CHOICES,
+        default='0',
+    )
     ATTRIBUTE_CHOICES = (
         ('0','Null'),
         ('1','EARTH'),
