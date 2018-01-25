@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.urls import include, path
 from django.contrib import admin
+#Add URL maps to redirect the base URL to our application
+from django.views.generic import RedirectView
+# Use static() to add url mapping to serve static files during development (only)
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('ygo_db/', include('ygo_db.urls')), 
     path('admin/', admin.site.urls),
+    path('', RedirectView.as_view(url='/ygo_db/', permanent=True)),
 ]
