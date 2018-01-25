@@ -1,10 +1,5 @@
 from django.db import models
 
-class CardAttribute(models.Model):
-    """Matches attribute values with enum for human readability"""
-    id = models.IntegerField(primary_key=True)
-    attribute = models.CharField(max_length=10)
-
 class CardTexts(models.Model):
     """Models the 'texts' table from DB"""
     id = models.IntegerField(primary_key=True)
@@ -46,13 +41,24 @@ class CardDatas(models.Model):
     defense = models.IntegerField(db_column='def', default=0)
     level = models.IntegerField(blank=True)
     race = models.IntegerField(blank=True)
-    attribute = models.IntegerField(blank=True)
+    ATTRIBUTE_CHOICES = (
+        ('0','Null'),
+        ('1','EARTH'),
+        ('2','WATER'),
+        ('4','FIRE'),
+        ('8','WIND'),
+        ('16','LIGHT'),
+        ('32','DARK'),
+        ('64','DIVINE')
+    )
+    attribute = models.CharField(
+        max_length=10,
+        choices=ATTRIBUTE_CHOICES,
+        default='0',
+    )
     category = models.IntegerField(blank=True)
 
     class Meta:
         """Link model to the 'datas' table from DB"""
         db_table = 'datas'
         managed = False
-    
-    def __str__(self):
-        return '%s' % (self.attribute)

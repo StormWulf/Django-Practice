@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import CardDatas, CardTexts, CardAttribute
+from .models import CardDatas, CardTexts
 
 class CardDatasInline(admin.TabularInline):
     model = CardDatas
@@ -23,4 +23,3 @@ class CardAdmin(admin.ModelAdmin):
     search_fields = ['name', 'desc']
 
 admin.site.register(CardTexts, CardAdmin)
-admin.site.register(CardAttribute)
