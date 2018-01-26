@@ -39,17 +39,65 @@ class CardDatas(models.Model):
         ('3','OCG/TCG'),
         ('4','Anime only')
     )
-    ot = models.CharField(
+    legality = models.CharField(
+        db_column='ot',
         max_length=20,
         choices=OT_CHOICES,
         default='1',
     )
-    alias = models.IntegerField(blank=True)
-    setcode = models.IntegerField(blank=True)
-    card_type = models.IntegerField(db_column='type', default=0)
+    alias = models.IntegerField(default=0)
+    setcode = models.IntegerField(default=0)
+    CARD_TYPE_CHOICES = (
+        ('2','Spell / Normal'),
+        ('4','Trap / Normal'),
+        ('33','Effect'),
+        ('65','Fusion'),
+        ('97','Fusion / Effect'),
+        ('129','Ritual'),
+        ('130','Spell / Ritual'),
+        ('161','Ritual / Effect'),
+        ('545','Spirit'),
+        ('673','Ritual / Spirit / Effect'),
+        ('1057','Union'),
+        ('2081','Gemini / Effect'),
+        ('4113','Tuner'),
+        ('4129','Tuner / Effect'),
+        ('4161','Fusion / Tuner'),
+        ('8193','Synchro'),
+        ('8225','Synchro / Effect'),
+        ('12321','Synchro / Tuner / Effect'),
+        ('16401','Token'),
+        ('65538','Spell / Quick-Play'),
+        ('131074','Spell / Continuous'),
+        ('131076','Trap / Continuous'),
+        ('262146','Spell / Equip'),
+        ('524290','Spell / Field'),
+        ('1048580','Trap / Counter'),
+        ('2097185','Flip / Effect'),
+        ('2101281','Flip / Tuner / Effect'),
+        ('4194337','Toon / Effect'),
+        ('8388609','Xyz'),
+        ('8388641','Xyz / Effect'),
+        ('16777233','Pendulum / Normal'),
+        ('16777249','Pendulum / Effect'),
+        ('16777313','Fusion / Pendulum / Effect'),
+        ('16781313','Pendulum / Tuner / Normal'),
+        ('16781345','Pendulum / Tuner / Effect'),
+        ('16785441','Synchro / Pendulum / Effect'),
+        ('18874401','Pendulum / Flip / Effect'),
+        ('25165857','Xyz / Pendulum / Effect'),
+        ('67108881','Link'),
+        ('67108897','Link / Effect')
+    )
+    card_type = models.CharField(
+        db_column='type',
+        max_length=50,
+        choices=CARD_TYPE_CHOICES,
+        default='2',
+    )
     attack = models.IntegerField(db_column='atk', default=0)
     defense = models.IntegerField(db_column='def', default=0)
-    level = models.IntegerField(blank=True)
+    level = models.IntegerField(default=0)
     RACE_CHOICES = (
         ('0','Null'),
         ('1','Warrior'),
@@ -98,7 +146,7 @@ class CardDatas(models.Model):
         choices=ATTRIBUTE_CHOICES,
         default='0',
     )
-    category = models.IntegerField(blank=True)
+    category = models.IntegerField(default=0)
 
     class Meta:
         """Link model to the 'datas' table from DB"""
